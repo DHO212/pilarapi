@@ -1,0 +1,49 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parserOptions": { "ecmaVersion": 2022, "sourceType": "module", "project": "./tsconfig.json" },
+  "env": { "node": true, "es2022": true, "jest": true },
+  "ignorePatterns": ["dist/", "coverage/", "node_modules/"],
+  "rules": {
+    "no-else-return": "error",
+    "no-lonely-if": "warn",
+    "max-lines": ["error", { "max": 120, "skipBlankLines": true, "skipComments": true }],
+    "max-lines-per-function": ["error", { "max": 30, "skipBlankLines": true, "skipComments": true }],
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "IfStatement[alternate]",
+        "message": "No else — use early return / guard clause (Clean Code / Object Calisthenics rule 2). See solid skill."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["src/domain/**/*"],
+      "rules": {
+        "max-lines": ["error", { "max": 80, "skipBlankLines": true, "skipComments": true }],
+        "max-lines-per-function": ["error", { "max": 20, "skipBlankLines": true, "skipComments": true }]
+      }
+    },
+    {
+      "files": ["src/presentation/**/*"],
+      "rules": {
+        "max-lines-per-function": ["warn", { "max": 100, "skipBlankLines": true, "skipComments": true }],
+        "max-lines": ["warn", { "max": 180, "skipBlankLines": true, "skipComments": true }]
+      }
+    },
+    {
+      "files": ["tests/**/*"],
+      "rules": {
+        "max-lines": "off",
+        "max-lines-per-function": "off",
+        "no-restricted-syntax": "off"
+      }
+    }
+  ]
+}
